@@ -121,6 +121,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKScriptMessageHandler
     }
     @objc func statusClicked(_ sender:Any?) {
         if NSApp.currentEvent?.type == .rightMouseUp {
+            closeQuickPanel()
             let menu=NSMenu()
             let show=menu.addItem(withTitle:"VDown’i Aç",action:#selector(showMainWindow),keyEquivalent:"");show.target=self
             menu.addItem(.separator())

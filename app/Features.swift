@@ -84,8 +84,9 @@ extension AppDelegate {
         let x=min(max(anchor.midX-195,screen.minX+8),screen.maxX-398)
         quickPanel?.setFrameOrigin(NSPoint(x:x,y:max(screen.minY+8,anchor.minY-566)))
         quickPanel?.makeKeyAndOrderFront(nil)
+        button.highlight(true)
     }
-    func closeQuickPanel() {quickPanel?.orderOut(nil);updateStatus([:])}
+    func closeQuickPanel() {quickPanel?.orderOut(nil);statusItem.button?.highlight(false);updateStatus([:])}
     func windowDidResignKey(_ notification:Notification) {
         guard let panel=quickPanel,notification.object as? NSWindow === panel else{return}
         // Let the status button toggle the still-visible panel on mouse-up.
