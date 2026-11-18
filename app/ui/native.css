@@ -1,0 +1,85 @@
+html,body{margin:0;min-height:100%;background:light-dark(#fff,#202022);color-scheme:light dark}
+#video-mac-preview{padding:0}
+#video-mac-preview .vm-window{border:0;border-radius:0;max-width:none;overflow:visible}
+#video-mac-preview .vm-cover{height:120px;object-fit:contain}
+#video-mac-preview .vm-cover-fallback{width:160px;max-width:45%;height:120px;display:grid;place-items:center;border-radius:8px;background:var(--vm-soft);color:var(--vm-secondary);font-size:12px;text-align:center}
+#video-mac-preview .vm-footer-folder{display:flex;align-items:center;gap:7px;background:none;border:0;color:inherit;font:inherit;padding:2px}
+#video-mac-preview .vm-item{grid-template-columns:minmax(0,1fr) auto}
+#video-mac-preview .vm-item-name,#video-mac-preview .vm-item-meta{overflow-wrap:anywhere}
+#video-mac-preview .vm-item[data-state="failed"] .vm-item-meta,#video-mac-preview .vm-status[data-error="true"]{color:light-dark(#b42318,#ff817a)}
+#video-mac-preview .vm-status:empty{min-height:12px;padding:0}
+#video-mac-preview .vm-status{user-select:text}
+
+#video-mac-preview .vm-footer{margin-top:8px}
+#video-mac-preview .vm-settings>.vm-button,#video-mac-preview .vm-quality-trigger{height:40px;min-height:40px;align-self:center}
+#video-mac-preview .vm-quality{position:relative;max-width:100%}
+#video-mac-preview .vm-quality-trigger{min-width:176px;justify-content:space-between;gap:18px;background:var(--vm-input);font-weight:400}
+#video-mac-preview .vm-quality-trigger svg{width:14px;height:14px;color:var(--vm-secondary)}
+#video-mac-preview .vm-quality-trigger[aria-expanded="true"]{border-color:var(--vm-blue)}
+#video-mac-preview .vm-quality-menu{position:absolute;top:calc(100% + 6px);left:0;z-index:10;width:100%;min-width:176px;padding:5px;background:var(--vm-bg);border:1px solid var(--vm-line);border-radius:10px;box-shadow:0 8px 24px light-dark(#0000001a,#00000055);overflow-y:auto;overscroll-behavior:contain}
+#video-mac-preview .vm-quality-menu.opens-up{top:auto;bottom:calc(100% + 6px)}
+#video-mac-preview .vm-quality-option{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:34px;padding:8px 10px;border:0;border-radius:6px;background:transparent;color:var(--vm-fg);font-size:13px;text-align:left}
+#video-mac-preview .vm-quality-option:hover,#video-mac-preview .vm-quality-option:focus-visible{background:var(--vm-soft);outline:0}
+#video-mac-preview .vm-quality-option[aria-selected="true"]{color:var(--vm-blue)}
+#video-mac-preview .vm-quality-check{visibility:hidden;font-size:13px}
+#video-mac-preview .vm-quality-option[aria-selected="true"] .vm-quality-check{visibility:visible}
+@media(pointer:coarse){#video-mac-preview .vm-settings>.vm-button,#video-mac-preview .vm-quality-trigger,#video-mac-preview .vm-quality-option{min-height:44px}}
+#video-mac-preview textarea{display:block;resize:none;min-width:0;width:100%;min-height:42px;max-height:126px;padding:12px 0;border:0;background:transparent;font-family:inherit;font-size:13px;line-height:18px;color:var(--vm-fg)}
+#video-mac-preview textarea::placeholder{color:var(--vm-secondary)}
+#video-mac-preview .vm-input-wrap{align-items:center}
+#video-mac-preview .vm-text-button{border:0;background:none;color:var(--vm-blue);font:inherit;font-size:12px;padding:6px 0}
+#video-mac-preview .vm-playlist{margin-top:8px}
+#video-mac-preview .vm-mode-note{font-size:12px;line-height:1.5;color:var(--vm-secondary);margin-top:10px}
+#video-mac-preview .vm-main>.vm-folder{width:auto;border:0;padding:0;margin-top:16px;color:var(--vm-secondary)}
+#video-mac-preview [data-dropdown="mode"] .vm-quality-trigger{min-width:132px}
+#video-mac-preview .vm-collection{margin-top:24px;border-top:1px solid var(--vm-line);padding-top:20px}
+#video-mac-preview .vm-collection h3{font-size:14px;font-weight:500;overflow-wrap:anywhere}
+#video-mac-preview .vm-check-all,#video-mac-preview .vm-collection-list label{display:flex;align-items:center;gap:10px;font-size:13px;padding:10px 0;line-height:1.5}
+#video-mac-preview .vm-collection-list{max-height:260px;overflow:auto;border-top:1px solid var(--vm-line);border-bottom:1px solid var(--vm-line)}
+#video-mac-preview .vm-collection-list label{padding:10px 4px}
+#video-mac-preview .vm-collection-list span{overflow-wrap:anywhere}
+#video-mac-preview input[type="checkbox"]{width:16px;height:16px;min-height:16px;flex-shrink:0;accent-color:var(--vm-blue)}
+#video-mac-preview .vm-collection-count{font-size:12px;color:var(--vm-secondary);margin-top:10px}
+#video-mac-preview .vm-update{margin-left:auto;color:var(--vm-secondary)}
+#video-mac-preview .vm-update-status{font-size:12px;line-height:1.5;color:var(--vm-secondary);padding:0 20px 12px}
+#video-mac-preview .vm-update-status:empty{padding:0}
+#video-mac-preview .vm-main-button{display:none}
+body.quick #video-mac-preview .vm-main{padding:20px 18px 8px}
+body.quick #video-mac-preview .vm-input-row{flex-direction:row}
+body.quick #video-mac-preview .vm-cover{width:100px;height:75px}
+body.quick #video-mac-preview .vm-details h3{font-size:13px}
+body.quick #video-mac-preview .vm-video{margin-top:18px;padding-top:18px}
+body.quick #video-mac-preview .vm-main-button{display:block;margin-left:auto}
+body.quick #video-mac-preview .vm-update{display:none}
+body.quick #video-mac-preview .vm-footer{padding:8px 18px}
+body.quick #video-mac-preview .vm-item:nth-child(n+4){display:none}
+body.quick #video-mac-preview .vm-empty{padding:22px 0}
+#video-mac-preview .vm-settings-open{margin-left:auto;color:var(--vm-secondary)}
+#video-mac-preview .vm-settings-dialog{box-sizing:border-box;width:min(440px,calc(100vw - 32px));max-height:calc(100vh - 32px);padding:22px;border:1px solid var(--vm-line);border-radius:14px;background:var(--vm-bg);color:var(--vm-fg);box-shadow:0 20px 60px #0003;overflow:auto}
+#video-mac-preview .vm-settings-dialog::backdrop{background:#0003}
+#video-mac-preview .vm-dialog-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+#video-mac-preview .vm-dialog-header h3{font-size:16px;font-weight:600}
+#video-mac-preview .vm-setting-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0;border-top:1px solid var(--vm-line);font-size:13px}
+#video-mac-preview .vm-setting-row>span{min-width:0}
+#video-mac-preview .vm-setting-row small{display:block;font-size:11px;line-height:1.5;color:var(--vm-secondary);margin-top:4px;overflow-wrap:anywhere}
+#video-mac-preview .vm-setting-row input[role="switch"]{appearance:none;-webkit-appearance:none;position:relative;width:34px;height:20px;min-height:20px;border:0;border-radius:12px;background:light-dark(#d1d1d6,#5c5c61);flex:0 0 34px;margin:0}
+#video-mac-preview .vm-setting-row input[role="switch"]:checked{background:var(--vm-blue)}
+#video-mac-preview .vm-setting-row input[role="switch"]::after{content:'';position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;left:2px;top:2px;box-shadow:0 1px 2px #0002}
+#video-mac-preview .vm-setting-row input[role="switch"]:checked::after{left:16px}
+#video-mac-preview .vm-setting-row input[role="switch"]:disabled{opacity:.5}
+#video-mac-preview .vm-settings-message,#video-mac-preview .vm-settings-dialog .vm-update-status{font-size:12px;color:var(--vm-secondary);line-height:1.5;padding:0;margin-top:10px}
+#video-mac-preview .vm-setting-row .vm-text-button{flex-shrink:0}
+
+/* Only the main content scrolls; the existing footer stays visible. */
+html,body,#video-mac-preview{height:100%;overflow:hidden}
+#video-mac-preview .vm-window{height:100%;display:flex;flex-direction:column;overflow:hidden}
+#video-mac-preview .vm-main{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain}
+#video-mac-preview .vm-footer{flex-shrink:0;margin-top:0}
+#video-mac-preview .vm-history-actions{display:flex;align-items:center;gap:14px}
+#video-mac-preview .vm-clear-history:disabled{opacity:.4;cursor:default}
+#video-mac-preview .vm-item{grid-template-columns:64px minmax(0,1fr) auto}
+#video-mac-preview .vm-item-info{min-width:0}
+#video-mac-preview .vm-item-cover{position:relative;width:64px;height:44px;border-radius:6px;overflow:hidden;background:var(--vm-soft);display:grid;place-items:center;color:var(--vm-secondary)}
+#video-mac-preview .vm-item-cover img{position:absolute;width:100%;height:100%;object-fit:cover}
+#video-mac-preview .vm-item-cover span{font-size:14px}
+@media(max-width:440px){#video-mac-preview .vm-item{grid-template-columns:48px minmax(0,1fr) auto;gap:8px}#video-mac-preview .vm-item-cover{width:48px;height:36px}}
