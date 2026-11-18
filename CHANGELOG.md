@@ -1,6 +1,8 @@
 # VDown sürüm notları
 
 ## 2.1.0
+
+- Menü çubuğu paneli açılırken simgenin kayması ve aynı tıklamayla kapanıp yeniden açılması düzeltildi.
 - Uygulama adı VDown olarak değiştirildi.
 - Onaylanan V/indirme oku logosu Dock, menü çubuğu ve Hakkında penceresine uygulandı.
 - DMG, kaynak deposu ve indirme sayfası VDown adıyla güncellendi.
