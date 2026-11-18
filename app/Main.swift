@@ -4,7 +4,7 @@ import ServiceManagement
 
 final class QuickPanel: NSPanel {
     override var canBecomeKey: Bool { true }
-    override var canBecomeMain: Bool { true }
+    override var canBecomeMain: Bool { false }
 }
 
 final class StatusContents: NSView {

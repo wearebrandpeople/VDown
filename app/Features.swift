@@ -68,13 +68,13 @@ extension AppDelegate {
         guard let button=statusItem.button,let host=button.window else{return}
         if !statusItem.isVisible {showMainWindow();return}
         if quickPanel?.isVisible == true {closeQuickPanel();return}
-        completionPopover.performClose(nil);statusItem.length=68;button.layoutSubtreeIfNeeded()
+        completionPopover.performClose(nil);button.layoutSubtreeIfNeeded()
         if quickWeb==nil {
             let config=WKWebViewConfiguration();config.userContentController.add(self,name:"native")
             config.userContentController.addUserScript(WKUserScript(source:"window.isQuickPanel = true;",injectionTime:.atDocumentStart,forMainFrameOnly:true))
             let view=WKWebView(frame:NSRect(x:0,y:0,width:390,height:560),configuration:config);view.navigationDelegate=self;quickWeb=view
-            let panel=QuickPanel(contentRect:view.bounds,styleMask:[.borderless],backing:.buffered,defer:false)
-            panel.title="VDown — Hızlı panel";panel.level = .popUpMenu;panel.hasShadow=true;panel.isReleasedWhenClosed=false;panel.isFloatingPanel=true;panel.delegate=self
+            let panel=QuickPanel(contentRect:view.bounds,styleMask:[.borderless,.nonactivatingPanel],backing:.buffered,defer:false)
+            panel.title="VDown — Hızlı panel";panel.level = .popUpMenu;panel.hasShadow=true;panel.isReleasedWhenClosed=false;panel.isFloatingPanel=true;panel.hidesOnDeactivate=false;panel.delegate=self
             panel.backgroundColor = .windowBackgroundColor;panel.contentView=view;view.wantsLayer=true;view.layer?.cornerRadius=12;view.layer?.masksToBounds=true
             quickPanel=panel
             view.loadFileURL(resources.appendingPathComponent("ui/index.html"),allowingReadAccessTo:resources.appendingPathComponent("ui"))
@@ -83,11 +83,18 @@ extension AppDelegate {
         let screen=host.screen?.visibleFrame ?? NSScreen.main!.visibleFrame
         let x=min(max(anchor.midX-195,screen.minX+8),screen.maxX-398)
         quickPanel?.setFrameOrigin(NSPoint(x:x,y:max(screen.minY+8,anchor.minY-566)))
-        NSApp.activate(ignoringOtherApps:true);quickPanel?.makeKeyAndOrderFront(nil);quickPanel?.makeMain()
+        quickPanel?.makeKeyAndOrderFront(nil)
     }
     func closeQuickPanel() {quickPanel?.orderOut(nil);updateStatus([:])}
     func windowDidResignKey(_ notification:Notification) {
-        if let panel=quickPanel,notification.object as? NSWindow === panel {closeQuickPanel()}
+        guard let panel=quickPanel,notification.object as? NSWindow === panel else{return}
+        // Let the status button toggle the still-visible panel on mouse-up.
+        // Closing on mouse-down here would make that same click reopen it.
+        if let button=statusItem.button,let host=button.window {
+            let frame=host.convertToScreen(button.convert(button.bounds,to:nil))
+            if frame.contains(NSEvent.mouseLocation) {return}
+        }
+        closeQuickPanel()
     }
     func preview(_ url:String,to target:WKWebView) {
         guard !updateBusy else{send("error",["message":"Motor güncelleniyor; bitince tekrar dene."],to:target);return}
