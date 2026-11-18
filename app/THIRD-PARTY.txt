@@ -1,0 +1,11 @@
+Video İndir uses:
+- yt-dlp 2026.10.26 (macOS universal build)
+  https://github.com/yt-dlp/yt-dlp
+  https://github.com/yt-dlp/yt-dlp/blob/master/THIRD_PARTY_LICENSES.txt
+- FFmpeg 7.1 arm64, packaged by imageio-ffmpeg
+  https://ffmpeg.org/ and https://github.com/imageio/imageio-ffmpeg
+  Build license details: run tools/ffmpeg -L
+- Node.js 24.18.0 arm64 (local official installation, universal binary thinned)
+  https://nodejs.org/ and https://github.com/nodejs/node/blob/main/LICENSE
+- Lucide 1.17.0 (ISC)
+  https://lucide.dev/ and https://github.com/lucide-icons/lucide/blob/main/LICENSE
