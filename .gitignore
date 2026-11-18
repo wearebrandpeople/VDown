@@ -1,0 +1,20 @@
+# Generated application bundles, releases and local state
+.DS_Store
+*.app/
+outputs/
+work/
+.build/
+*.dSYM/
+*.zip
+.env
+.env.*
+*.p12
+*.pfx
+*.cer
+*.key
+*.mobileprovision
+notary-*.json
+__pycache__/
+tools/*
+!tools/README.md
+!tools/from-app.sh
