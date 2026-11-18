@@ -3,7 +3,22 @@
 Video bağlantılarını önizleyip Mac’e indirmek için Swift/AppKit ve WebKit
 kullanan masaüstü uygulaması.
 
-**Kaynak sürümü:** 2.0.6 · **Platform:** macOS 14+, Apple Silicon.
+**Sürüm:** 2.0.6 · **Platform:** macOS 14+, Apple Silicon (M serisi).
+
+## İndir ve kur
+
+### [Video İndir 2.0.6 — DMG indir](https://github.com/wearebrandpeople/video-indir/releases/download/v2.0.6/Video-Indir-2.0.6-Apple-Silicon.dmg)
+
+1. DMG dosyasını açın.
+2. **Video İndir** uygulamasını **Applications / Uygulamalar** klasörüne sürükleyin.
+3. Uygulamayı Uygulamalar klasöründen açın.
+
+Uygulama Developer ID ile imzalı ve Apple tarafından notarize edilmiştir.
+DMG de imzalanmış, notarize edilmiş ve onay bileti pakete eklenmiştir.
+Intel Mac’ler bu pakette desteklenmez.
+
+[Tüm sürümler ve sağlama toplamları](https://github.com/wearebrandpeople/video-indir/releases)
+
 
 ## Özellikler
 
@@ -58,7 +73,8 @@ NOTARY_PROFILE='YourProfile' bash scripts/finalize-notarization.sh
 ```
 
 Bu depoda sertifika, özel anahtar, parola veya notarizasyon sonucu yoktur.
-2.0.6'nın dağıtım/notarizasyon durumu bu arşivleme sırasında doğrulanmadı.
+2.0.6 uygulamasının Apple notarizasyon kaydı Accepted olarak doğrulandı.
+Yayımlanan DMG ve içindeki uygulama için stapler, kod imzası ve Gatekeeper kontrolleri geçti.
 
 ## Yerel veriler
 
