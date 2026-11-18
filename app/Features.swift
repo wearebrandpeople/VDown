@@ -74,7 +74,7 @@ extension AppDelegate {
             config.userContentController.addUserScript(WKUserScript(source:"window.isQuickPanel = true;",injectionTime:.atDocumentStart,forMainFrameOnly:true))
             let view=WKWebView(frame:NSRect(x:0,y:0,width:390,height:560),configuration:config);view.navigationDelegate=self;quickWeb=view
             let panel=QuickPanel(contentRect:view.bounds,styleMask:[.borderless],backing:.buffered,defer:false)
-            panel.title="Video İndir — Hızlı panel";panel.level = .popUpMenu;panel.hasShadow=true;panel.isReleasedWhenClosed=false;panel.isFloatingPanel=true;panel.delegate=self
+            panel.title="VDown — Hızlı panel";panel.level = .popUpMenu;panel.hasShadow=true;panel.isReleasedWhenClosed=false;panel.isFloatingPanel=true;panel.delegate=self
             panel.backgroundColor = .windowBackgroundColor;panel.contentView=view;view.wantsLayer=true;view.layer?.cornerRadius=12;view.layer?.masksToBounds=true
             quickPanel=panel
             view.loadFileURL(resources.appendingPathComponent("ui/index.html"),allowingReadAccessTo:resources.appendingPathComponent("ui"))

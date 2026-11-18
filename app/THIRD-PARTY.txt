@@ -1,4 +1,4 @@
-Video İndir uses:
+VDown uses:
 - yt-dlp 2026.10.26 (macOS universal build)
   https://github.com/yt-dlp/yt-dlp
   https://github.com/yt-dlp/yt-dlp/blob/master/THIRD_PARTY_LICENSES.txt

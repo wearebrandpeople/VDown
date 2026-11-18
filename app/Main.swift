@@ -50,6 +50,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKScriptMessageHandler
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         UserDefaults.standard.register(defaults:["showMenuBar":true,"resumeOnLaunch":true])
+        NSApp.applicationIconImage = NSImage(contentsOf: resources.appendingPathComponent("VDown.icns"))
         prepareStorage()
         restoreJobs()
         if let saved = UserDefaults.standard.string(forKey:"downloadFolder"), FileManager.default.fileExists(atPath:saved) { folder=URL(fileURLWithPath:saved) }
@@ -57,12 +58,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKScriptMessageHandler
         let menu = NSMenu()
         let appItem=NSMenuItem(); menu.addItem(appItem)
         let appMenu=NSMenu(); appItem.submenu=appMenu
-        appMenu.addItem(withTitle:"Video İndir Hakkında",action:#selector(about),keyEquivalent:"")
+        appMenu.addItem(withTitle:"VDown Hakkında",action:#selector(about),keyEquivalent:"")
         let settings=appMenu.addItem(withTitle:"Ayarlar…",action:#selector(showSettings),keyEquivalent:",");settings.target=self
         let quick=appMenu.addItem(withTitle:"Hızlı Paneli Aç",action:#selector(showQuickPanel),keyEquivalent:"");quick.target=self
         let updater=appMenu.addItem(withTitle:"Motoru Güncelle…",action:#selector(updateEngine),keyEquivalent:"");updater.target=self
         appMenu.addItem(.separator())
-        appMenu.addItem(withTitle:"Video İndir’den Çık",action:#selector(NSApplication.terminate(_:)),keyEquivalent:"q")
+        appMenu.addItem(withTitle:"VDown’den Çık",action:#selector(NSApplication.terminate(_:)),keyEquivalent:"q")
         let editItem=NSMenuItem();menu.addItem(editItem);let edit=NSMenu(title:"Düzen");editItem.submenu=edit
         for (title,action,key) in [("Geri Al","undo:","z"),("Kes","cut:","x"),("Kopyala","copy:","c"),("Yapıştır","paste:","v"),("Tümünü Seç","selectAll:","a")] { edit.addItem(withTitle:title,action:NSSelectorFromString(action),keyEquivalent:key) }
         NSApp.mainMenu=menu
@@ -70,12 +71,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKScriptMessageHandler
         let config=WKWebViewConfiguration();config.userContentController.add(self,name:"native")
         web=WKWebView(frame:.zero,configuration:config);web.navigationDelegate=self
         window=NSWindow(contentRect:NSRect(x:0,y:0,width:780,height:620),styleMask:[.titled,.closable,.miniaturizable,.resizable],backing:.buffered,defer:false)
-        window.title="Video İndir"; window.minSize=NSSize(width:430,height:440);window.delegate=self;window.isReleasedWhenClosed=false
+        window.title="VDown"; window.minSize=NSSize(width:430,height:440);window.delegate=self;window.isReleasedWhenClosed=false
         window.contentView=web;window.center();window.setFrameAutosaveName("MainWindow")
         web.loadFileURL(resources.appendingPathComponent("ui/index.html"),allowingReadAccessTo:resources.appendingPathComponent("ui"))
         window.makeKeyAndOrderFront(nil);NSApp.activate(ignoringOtherApps:true)
     }
-    @objc func about() { NSApp.orderFrontStandardAboutPanel(options:[.applicationName:"Video İndir",.applicationVersion:"2.0.6",.credits:NSAttributedString(string:"YouTube, Instagram, X ve diğer desteklenen siteler.\nyt-dlp · FFmpeg · Node.js")]) }
+    @objc func about() { NSApp.orderFrontStandardAboutPanel(options:[.applicationName:"VDown",.applicationVersion:(Bundle.main.object(forInfoDictionaryKey:"CFBundleShortVersionString") as? String ?? "2.1.0"),.credits:NSAttributedString(string:"YouTube, Instagram, X ve diğer desteklenen siteler.\nyt-dlp · FFmpeg · Node.js")]) }
     func applicationShouldTerminateAfterLastWindowClosed(_ sender:NSApplication)->Bool { false }
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool { if quickPanel?.isVisible == true {quickPanel?.makeKey()} else if !flag {showMainWindow()}; return true }
     @objc func showMainWindow() {
@@ -87,8 +88,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKScriptMessageHandler
         statusItem.isVisible=UserDefaults.standard.bool(forKey:"showMenuBar")
         statusPercent.isHidden=true
         if let button = statusItem.button {
-            let icon = NSImage(systemSymbolName:"arrow.down.circle",accessibilityDescription:"Video İndir")
-            icon?.isTemplate=true
+            let icon = NSImage(contentsOf: resources.appendingPathComponent("VDown.png"))
+            icon?.isTemplate=false
             let contents=StatusContents();contents.translatesAutoresizingMaskIntoConstraints=false
             let image=NSImageView();image.image=icon;image.translatesAutoresizingMaskIntoConstraints=false
             image.symbolConfiguration=NSImage.SymbolConfiguration(pointSize:16,weight:.regular)
@@ -105,7 +106,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKScriptMessageHandler
                 statusPercent.leadingAnchor.constraint(equalTo:contents.leadingAnchor,constant:26),statusPercent.centerYAnchor.constraint(equalTo:contents.centerYAnchor),
                 statusPercent.widthAnchor.constraint(equalToConstant:40)
             ])
-            button.toolTip="Video İndir";button.target=self;button.action=#selector(statusClicked(_:))
+            button.toolTip="VDown";button.target=self;button.action=#selector(statusClicked(_:))
             button.sendAction(on:[.leftMouseUp,.rightMouseUp])
         }
         let controller=NSViewController();controller.view=NSView(frame:NSRect(x:0,y:0,width:112,height:46))
@@ -121,7 +122,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKScriptMessageHandler
     @objc func statusClicked(_ sender:Any?) {
         if NSApp.currentEvent?.type == .rightMouseUp {
             let menu=NSMenu()
-            let show=menu.addItem(withTitle:"Video İndir’i Aç",action:#selector(showMainWindow),keyEquivalent:"");show.target=self
+            let show=menu.addItem(withTitle:"VDown’i Aç",action:#selector(showMainWindow),keyEquivalent:"");show.target=self
             menu.addItem(.separator())
             menu.addItem(withTitle:"Çık",action:#selector(NSApplication.terminate(_:)),keyEquivalent:"")
             statusItem.menu=menu;statusItem.button?.performClick(nil);statusItem.menu=nil
@@ -136,7 +137,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKScriptMessageHandler
             statusPercent.stringValue=active.isPreparing ? "…" : "\(min(99,max(0,Int(active.percent))))%"
             button.toolTip="\(active.info.title) — \(active.detail)"
         } else {
-            statusPercent.stringValue="";statusPercent.isHidden=true;button.toolTip="Video İndir"
+            statusPercent.stringValue="";statusPercent.isHidden=true;button.toolTip="VDown"
             if !completionPopover.isShown && quickPanel?.isVisible != true && !willShowCompletion { statusItem.length=26 }
         }
         if payload["state"] as? String == "done",let id=payload["id"] as? String,announcedJobs.insert(id).inserted {
